@@ -541,8 +541,7 @@ button { font: inherit; cursor: pointer; }
 
 .u--machines .tile,
 .u--career .track,
-.u--roots .slab,
-.u--egos .ego {
+.u--roots .slab {
   background: rgba(255, 255, 255, 0.72);
   border-color: rgba(38, 39, 47, 0.08);
 }
@@ -641,12 +640,12 @@ button { font: inherit; cursor: pointer; }
 .u--egos .u__title { font-size: clamp(2.2rem, 8vw, 5.8rem); color: #fff; text-shadow: 3px 3px 0 var(--n1), 6px 6px 0 var(--n2); }
 .u--egos .u__sub { opacity: .62; }
 .egos__grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(255px, 1fr)); gap: 1.1rem; margin-bottom: 3rem; }
-.ego { position: relative; border: 2px solid currentColor; border-radius: 4px; padding: clamp(1.5rem, 3.2vw, 2.2rem); background: rgba(255,255,255,.035); transition: transform .32s, box-shadow .32s; }
+.ego { position: relative; border: 2px solid currentColor; border-radius: 4px; padding: clamp(1.5rem, 3.2vw, 2.2rem); background: rgba(10, 0, 20, 0.6); backdrop-filter: blur(12px); transition: transform .32s, box-shadow .32s; }
 .ego--1 { color: var(--n1); } .ego--2 { color: var(--n2); } .ego--3 { color: var(--n3); }
 .ego:hover { transform: translate(-4px, -4px); }
-.ego--1:hover { box-shadow: 8px 8px 0 var(--n1); }
-.ego--2:hover { box-shadow: 8px 8px 0 var(--n2); }
-.ego--3:hover { box-shadow: 8px 8px 0 var(--n3); }
+.ego--1:hover { box-shadow: 8px 8px 0 var(--n1), 0 0 20px rgba(255, 46, 136, 0.4); }
+.ego--2:hover { box-shadow: 8px 8px 0 var(--n2), 0 0 20px rgba(0, 229, 255, 0.4); }
+.ego--3:hover { box-shadow: 8px 8px 0 var(--n3), 0 0 20px rgba(255, 210, 63, 0.4); }
 .ego__k { font-family: var(--font-black); font-size: 1rem; letter-spacing: .1em; margin: 0 0 1rem; }
 .ego h3 { font-family: var(--font-black); font-size: clamp(1.5rem, 3.6vw, 2.3rem); line-height: .98; letter-spacing: -.03em; margin: 0 0 1.1rem; color: #fff; }
 .ego__why { font-size: .92rem; line-height: 1.78; margin: 0; color: inherit; opacity: .66; }
