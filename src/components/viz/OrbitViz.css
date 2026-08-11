@@ -1,0 +1,58 @@
+/* OrbitViz — orbital system. Owned by OrbitViz.tsx. */
+
+.orbitviz {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.orbitviz__svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  min-height: 214px;
+  max-height: 272px;
+  overflow: visible;
+}
+
+.orbitviz__label {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.04em;
+  paint-order: stroke fill;
+  stroke: rgba(10, 12, 34, 0.88);
+  stroke-width: 3px;
+  stroke-linejoin: round;
+  opacity: 0.72;
+  transition: opacity 0.5s ease;
+}
+
+.orbitviz__body.is-lead .orbitviz__label {
+  opacity: 1;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+}
+
+.orbitviz__glow {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: orbitviz-breathe 5.5s ease-in-out infinite;
+}
+
+@keyframes orbitviz-breathe {
+  0%,
+  100% {
+    transform: scale(0.86);
+    opacity: 0.75;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .orbitviz__glow {
+    animation: none;
+  }
+}

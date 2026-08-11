@@ -1,0 +1,58 @@
+/* MosaicViz — weighted treemap. Owned by MosaicViz.tsx. */
+
+.mosaicviz {
+  position: relative;
+  width: 100%;
+  height: 252px;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.mosaicviz__tile {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 0.45rem;
+  padding: 9px 11px;
+  border: 1px solid transparent;
+  border-radius: 7px;
+  overflow: hidden;
+  transition:
+    left 0.72s cubic-bezier(0.16, 1, 0.3, 1),
+    top 0.72s cubic-bezier(0.16, 1, 0.3, 1),
+    width 0.72s cubic-bezier(0.16, 1, 0.3, 1),
+    height 0.72s cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 0.55s ease,
+    box-shadow 0.55s ease;
+}
+
+.mosaicviz__crest {
+  display: block;
+  width: 26px;
+  border-radius: 100px;
+  flex: none;
+  transition: height 0.55s ease, background 0.55s ease;
+}
+
+.mosaicviz__label {
+  font-family: var(--font-sans);
+  font-weight: 500;
+  line-height: 1.16;
+  letter-spacing: -0.01em;
+  overflow-wrap: anywhere;
+  text-wrap: balance;
+  transition: font-size 0.72s cubic-bezier(0.16, 1, 0.3, 1), color 0.55s ease;
+}
+
+.mosaicviz__tile.is-lead .mosaicviz__label {
+  font-weight: 700;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mosaicviz__tile,
+  .mosaicviz__crest,
+  .mosaicviz__label {
+    transition: none;
+  }
+}

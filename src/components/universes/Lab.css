@@ -1,0 +1,24 @@
+/* ============================================================
+   PROBABILITY LAB — local additions only.
+   Every shared class (.panel, .panels, .lab__bg, .lab__manifesto,
+   .reroll, .reroll__hint) lives in src/index.css and is owned there.
+   This file only carries the one modifier index.css does not define.
+   ============================================================ */
+
+/* the whole-day re-roll: same instrument, larger hit area */
+.reroll--big {
+  margin-top: 0.7rem;
+  padding: 1rem 1.75rem;
+  font-size: 0.74rem;
+  letter-spacing: 0.18em;
+}
+.reroll--big svg {
+  width: 17px;
+  height: 17px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reroll--big svg {
+    transition: none;
+  }
+}

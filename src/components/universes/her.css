@@ -1,0 +1,395 @@
+/* ============================================================
+   HER — bokeh backdrop, gravity field, aperture, mood fan.
+   Owned exclusively by src/components/universes/Her.tsx.
+   Palette tokens (--acc #f0a3b8, --acc2 #ffc9a3) come from
+   .u--her in index.css; the rgba() literals below mirror them
+   because they need per-layer alpha.
+   ============================================================ */
+
+/* ---------- 1 · soft bokeh backdrop ---------- */
+.her-bokeh {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  overflow: hidden;
+}
+.her-bokeh i {
+  position: absolute;
+  display: block;
+  left: var(--x);
+  top: var(--y);
+  width: var(--s);
+  height: var(--s);
+  border-radius: 50%;
+  opacity: var(--o);
+  filter: blur(var(--b));
+  background: radial-gradient(circle at 34% 30%, var(--c1), var(--c2) 55%, rgba(240, 163, 184, 0) 74%);
+  animation: her-drift var(--t) ease-in-out var(--dl) infinite alternate;
+}
+@keyframes her-drift {
+  0% { transform: translate3d(0, 0, 0) scale(1); }
+  50% { transform: translate3d(var(--dx), var(--dy), 0) scale(1.09); }
+  100% { transform: translate3d(calc(var(--dx) * -0.55), calc(var(--dy) * -0.85), 0) scale(0.93); }
+}
+
+/* ---------- shared section furniture ---------- */
+.her-sec { margin-top: clamp(3.4rem, 7vw, 6rem); }
+.her-sec__label {
+  display: flex;
+  align-items: center;
+  gap: .9rem;
+  margin: 0 0 1.5rem;
+  font-family: var(--font-mono);
+  font-size: .66rem;
+  letter-spacing: .28em;
+  text-transform: uppercase;
+  color: var(--acc);
+  opacity: .82;
+}
+.her-sec__label::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(240, 163, 184, .38), rgba(240, 163, 184, 0));
+}
+.her-cap {
+  margin: 1.5rem 0 0;
+  font-family: var(--font-serif);
+  font-size: clamp(1rem, 2.2vw, 1.32rem);
+  line-height: 1.5;
+  opacity: .58;
+}
+.her-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ---------- 4 · the gravity field ---------- */
+.her-field {
+  position: relative;
+  container-type: inline-size;
+  width: 100%;
+  border-radius: 26px;
+  background:
+    radial-gradient(58% 60% at 26% 46%, rgba(240, 163, 184, .075), transparent 68%),
+    radial-gradient(58% 60% at 74% 54%, rgba(255, 201, 163, .06), transparent 68%);
+}
+.her-field__svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.her-field__thread {
+  fill: none;
+  stroke: rgba(246, 230, 236, .3);
+  stroke-width: 1;
+  stroke-dasharray: 2 9;
+  vector-effect: non-scaling-stroke;
+  animation: her-thread 26s linear infinite;
+}
+@keyframes her-thread { to { stroke-dashoffset: -220; } }
+
+.her-field__ring {
+  fill: none;
+  stroke: rgba(246, 230, 236, .16);
+  stroke-width: 1;
+  stroke-dasharray: 1 12;
+  vector-effect: non-scaling-stroke;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: her-orbit calc(72s + var(--i) * 26s) linear infinite;
+}
+.her-field__ring--rev { animation-direction: reverse; }
+@keyframes her-orbit { to { transform: rotate(360deg); } }
+
+.her-field__core {
+  fill: rgba(255, 255, 255, .82);
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: her-core 5.5s ease-in-out infinite;
+}
+@keyframes her-core {
+  0%, 100% { transform: scale(1); opacity: .8; }
+  50% { transform: scale(1.5); opacity: 1; }
+}
+
+.her-field__tether {
+  stroke: rgba(246, 230, 236, .2);
+  stroke-width: 1;
+  vector-effect: non-scaling-stroke;
+}
+
+.her-field__hub {
+  position: absolute;
+  left: 0;
+  top: 0;
+  transform: translate(-50%, -50%);
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-mono);
+  font-size: clamp(.58rem, 1.5cqw, .7rem);
+  letter-spacing: .26em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  pointer-events: none;
+  color: var(--acc);
+  text-shadow: 0 0 18px rgba(18, 9, 16, .9);
+}
+.her-field__hub--b { color: var(--acc2); }
+
+/* a trait node: real button, orb sized by pull, label always readable */
+.her-node {
+  position: absolute;
+  left: 0;
+  top: 0;
+  transform: translate(-50%, calc(var(--orb) * -0.5));
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .5rem;
+  width: clamp(5.2rem, 13cqw, 9rem);
+  margin: 0;
+  padding: 0;
+  background: none;
+  border: 0;
+  color: inherit;
+  text-align: center;
+  -webkit-tap-highlight-color: transparent;
+}
+.her-node__orb {
+  --orb-col: hsl(var(--h) 74% calc(46% + var(--str) * 16%));
+  position: relative;
+  display: block;
+  width: var(--orb);
+  height: var(--orb);
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 34% 28%, hsl(var(--h) 96% 92% / .95), var(--orb-col) 44%, hsl(var(--h) 62% 26% / .92) 100%);
+  box-shadow:
+    0 0 calc(var(--orb) * .55) hsl(var(--h) 88% 62% / calc(.14 + var(--str) * .34)),
+    inset 0 0 14px rgba(255, 255, 255, .22);
+  transition: transform .55s cubic-bezier(.16, 1, .3, 1), box-shadow .55s ease;
+}
+.her-node__label {
+  font-size: clamp(.62rem, 1.05vw, .75rem);
+  line-height: 1.32;
+  letter-spacing: .005em;
+  opacity: .7;
+  transition: opacity .35s ease, transform .35s ease;
+}
+.her-node:hover .her-node__orb,
+.her-node:focus-visible .her-node__orb,
+.her-node.is-on .her-node__orb {
+  transform: scale(1.2);
+  box-shadow:
+    0 0 calc(var(--orb) * 1.05) hsl(var(--h) 90% 66% / .5),
+    inset 0 0 16px rgba(255, 255, 255, .42);
+}
+.her-node:hover .her-node__label,
+.her-node:focus-visible .her-node__label,
+.her-node.is-on .her-node__label { opacity: 1; transform: translateY(2px); }
+.her-node:focus-visible { outline: none; }
+.her-node:focus-visible .her-node__orb {
+  outline: 2px solid var(--acc);
+  outline-offset: 5px;
+}
+
+/* the read-out under the field */
+.her-field__read {
+  display: flex;
+  flex-direction: column;
+  gap: .4rem;
+  min-height: 4.4rem;
+  margin: 1.6rem 0 0;
+  padding-left: 1.1rem;
+  border-left: 1px solid rgba(240, 163, 184, .3);
+}
+.her-field__read b {
+  font-family: var(--font-mono);
+  font-size: .7rem;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+.her-field__read span {
+  font-family: var(--font-serif);
+  font-size: clamp(1.02rem, 2.3vw, 1.42rem);
+  line-height: 1.45;
+  opacity: .82;
+}
+.her-field__read--idle span { opacity: .42; }
+
+/* ---------- 5 · the aperture ---------- */
+.her-ap {
+  position: relative;
+  container-type: inline-size;
+  width: 100%;
+}
+.her-ap__svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.her-ap__ring {
+  fill: none;
+  stroke: var(--acc);
+  stroke-opacity: .32;
+  stroke-width: 1.3;
+  vector-effect: non-scaling-stroke;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: her-ap-pulse 7.5s ease-in-out infinite;
+  animation-delay: calc(var(--i) * -1.35s);
+}
+@keyframes her-ap-pulse {
+  0%, 100% { transform: scale(1); stroke-opacity: .3; }
+  50% { transform: scale(.962); stroke-opacity: .6; }
+}
+.her-ap__ring--faint {
+  stroke-opacity: .15;
+  stroke-dasharray: 3 7;
+  animation-duration: 11s;
+}
+.her-ap__grid {
+  fill: none;
+  stroke: rgba(246, 230, 236, .07);
+  stroke-width: 1;
+  vector-effect: non-scaling-stroke;
+}
+.her-ap__lead {
+  fill: none;
+  stroke: var(--acc);
+  stroke-opacity: .24;
+  stroke-width: 1;
+  vector-effect: non-scaling-stroke;
+}
+.her-ap__dot { fill: var(--acc); fill-opacity: .8; }
+.her-ap__label {
+  position: absolute;
+  left: var(--lx);
+  top: var(--ly);
+  width: var(--lw);
+  transform: translateY(-50%);
+  margin: 0;
+}
+.her-ap__label b {
+  display: block;
+  font-size: clamp(.82rem, 1.9cqw, 1.02rem);
+  font-weight: 600;
+  letter-spacing: -.005em;
+  margin-bottom: .3rem;
+}
+.her-ap__label i {
+  display: block;
+  font-style: italic;
+  font-family: var(--font-serif);
+  font-size: clamp(.76rem, 1.7cqw, .95rem);
+  line-height: 1.5;
+  opacity: .52;
+}
+.her-ap__label--faint b { opacity: .5; }
+.her-ap__label--faint i { opacity: .34; }
+
+/* ---------- 6 · the mood fan ---------- */
+.her-fan {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding: 1.6rem 0 .6rem;
+}
+.her-fan__card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: min(19rem, 68vw);
+  min-height: 15.5rem;
+  margin-inline: clamp(-2.6rem, -2.2vw, -1.2rem);
+  padding: 1.5rem 1.4rem;
+  text-align: left;
+  color: inherit;
+  border: 1px solid rgba(246, 230, 236, .16);
+  border-radius: 18px;
+  background:
+    linear-gradient(170deg,
+      rgba(240, 163, 184, calc(.05 + var(--glow) * .1)),
+      rgba(46, 21, 34, .58) 62%,
+      rgba(26, 13, 22, .72));
+  backdrop-filter: blur(9px);
+  box-shadow: 0 22px 60px rgba(9, 4, 8, .5);
+  transform-origin: 50% 124%;
+  transform: rotate(var(--rot)) scale(var(--s)) translateY(var(--ty));
+  transition:
+    transform .6s cubic-bezier(.16, 1, .3, 1),
+    border-color .45s ease,
+    box-shadow .45s ease;
+  z-index: var(--z);
+}
+.her-fan__card:hover,
+.her-fan__card:focus-visible {
+  z-index: 30;
+  border-color: rgba(240, 163, 184, .6);
+  box-shadow: 0 30px 80px rgba(9, 4, 8, .62), 0 0 0 1px rgba(240, 163, 184, .18);
+  transform: rotate(0deg) scale(calc(var(--s) * 1.06)) translateY(calc(var(--ty) - 16px));
+}
+.her-fan__card:focus-visible { outline: 2px solid var(--acc); outline-offset: 4px; }
+.her-fan__mark {
+  display: block;
+  width: calc(1.1rem + var(--glow) * 2.4rem);
+  height: 2px;
+  margin-bottom: 1.1rem;
+  border-radius: 2px;
+  background: linear-gradient(90deg, var(--acc), rgba(255, 201, 163, .1));
+}
+.her-fan__label {
+  display: block;
+  font-family: var(--font-serif);
+  font-size: clamp(1.15rem, 2.4vw, 1.5rem);
+  line-height: 1.24;
+}
+.her-fan__note {
+  display: block;
+  margin-top: auto;
+  padding-top: 1.4rem;
+  font-size: .87rem;
+  line-height: 1.7;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity .5s ease, transform .5s cubic-bezier(.16, 1, .3, 1);
+}
+.her-fan__card:hover .her-fan__note,
+.her-fan__card:focus-visible .her-fan__note { opacity: .78; transform: none; }
+
+@media (max-width: 700px) {
+  .her-fan { flex-direction: column; align-items: stretch; gap: .9rem; padding-top: .8rem; }
+  .her-fan__card {
+    width: auto;
+    min-height: 0;
+    margin-inline: 0;
+    transform: none;
+  }
+  .her-fan__card:hover,
+  .her-fan__card:focus-visible { transform: none; }
+  .her-fan__note { opacity: .72; transform: none; padding-top: 1rem; }
+}
+
+/* ---------- motion preferences ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .her-bokeh i,
+  .her-field__thread,
+  .her-field__ring,
+  .her-field__core,
+  .her-ap__ring { animation: none !important; }
+  .her-node__orb,
+  .her-node__label,
+  .her-fan__card,
+  .her-fan__note { transition: none !important; }
+}

@@ -1,0 +1,78 @@
+/* ============================================================
+   DRIFT — local additions only.
+   The universe palette (.u--drift), the copy classes
+   (.drift__body, .drift__big) and the shared shell all live in
+   src/index.css and are owned there. This file only carries the
+   decorative sky layer that index.css does not define.
+   ============================================================ */
+
+.drift__sky {
+  position: absolute;
+  inset: -18% -8% -8%;
+  z-index: 1;
+  pointer-events: none;
+  overflow: hidden;
+  /* --drift-y is written by the rAF-throttled scroll handler */
+  transform: translate3d(0, var(--drift-y, 0%), 0);
+  will-change: transform;
+}
+
+.drift__sky span {
+  position: absolute;
+  display: block;
+}
+
+/* low, soft light source sitting high and right */
+.drift__sun {
+  top: 12%;
+  left: 58%;
+  width: min(34vw, 30rem);
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 50% 50%,
+    rgba(255, 255, 255, 0.85),
+    rgba(255, 246, 226, 0.34) 46%,
+    rgba(255, 246, 226, 0) 72%
+  );
+  filter: blur(6px);
+}
+
+/* banked haze along the lower half */
+.drift__haze {
+  inset: auto 0 16% 0;
+  height: 48%;
+  background:
+    radial-gradient(58% 100% at 18% 100%, rgba(255, 255, 255, 0.5), transparent 70%),
+    radial-gradient(48% 92% at 70% 100%, rgba(255, 255, 255, 0.36), transparent 72%),
+    radial-gradient(40% 80% at 94% 100%, rgba(255, 255, 255, 0.28), transparent 74%);
+  filter: blur(12px);
+}
+
+/* the horizon that has nothing pinned to it */
+.drift__horizon {
+  left: 0;
+  right: 0;
+  top: 57%;
+  height: 1px;
+  opacity: 0.55;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(29, 42, 51, 0.22) 16%,
+    rgba(29, 42, 51, 0.22) 84%,
+    transparent
+  );
+}
+
+.drift__horizon--low {
+  top: 63%;
+  opacity: 0.24;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .drift__sky {
+    transform: none;
+    will-change: auto;
+  }
+}

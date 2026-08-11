@@ -1,0 +1,91 @@
+/* ConstellationViz — star map. Owned by ConstellationViz.tsx. */
+
+.constviz {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.constviz__svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  min-height: 216px;
+  max-height: 274px;
+}
+
+.constviz__link {
+  transition: stroke-opacity 0.85s ease, stroke 0.85s ease;
+}
+
+.constviz__star {
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: transform 0.95s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.constviz__halo {
+  animation: constviz-twinkle 3.4s ease-in-out infinite;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.constviz__flare {
+  animation: constviz-flare 4.7s ease-in-out infinite;
+}
+
+@keyframes constviz-twinkle {
+  0%,
+  100% {
+    opacity: 0.55;
+    transform: scale(0.88);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.14);
+  }
+}
+
+@keyframes constviz-flare {
+  0%,
+  100% {
+    opacity: 0.7;
+  }
+  45% {
+    opacity: 1;
+  }
+}
+
+.constviz__labelwrap {
+  transition: transform 0.95s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.constviz__label {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.03em;
+  paint-order: stroke fill;
+  stroke: rgba(10, 12, 34, 0.9);
+  stroke-width: 3px;
+  stroke-linejoin: round;
+  opacity: 0.7;
+  transition: opacity 0.6s ease;
+}
+
+.constviz__label.is-lead {
+  opacity: 1;
+  font-weight: 600;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .constviz__star,
+  .constviz__labelwrap,
+  .constviz__link,
+  .constviz__label {
+    transition: none;
+  }
+  .constviz__halo,
+  .constviz__flare {
+    animation: none;
+  }
+}
