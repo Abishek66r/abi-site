@@ -332,7 +332,11 @@ button { font: inherit; cursor: pointer; }
 .reroll__hint { font-family: var(--font-mono); font-size: .68rem; letter-spacing: .08em; opacity: .4; margin-top: 1rem; }
 
 /* panel shell — shared by every viz mechanic */
-.panels { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 1.1rem; }
+.panels { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.1rem; }
+@media (max-width: 640px) {
+  .panels { grid-template-columns: 1fr; }
+  .panel__title { font-size: 0.95rem; word-wrap: break-word; }
+}
 .panel {
   position: relative; overflow: hidden;
   border: 1px solid rgba(255,255,255,.1); border-radius: 16px;
@@ -365,9 +369,17 @@ button { font: inherit; cursor: pointer; }
 .u--her .u__index { color: var(--acc); opacity: 1; }
 .u--her .u__title {
   font-family: var(--font-serif); font-weight: 400; font-style: italic;
-  font-size: clamp(2.6rem, 9vw, 6.5rem); letter-spacing: -.01em;
+  font-size: clamp(2rem, 9vw, 6.5rem); letter-spacing: -.01em;
   background: linear-gradient(120deg, #fff, #f0a3b8);
   -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+@media (max-width: 640px) {
+  .u--her .u__title {
+    font-size: clamp(1.8rem, 7.5vw, 2.8rem);
+    color: #f0a3b8;
+    -webkit-background-clip: unset;
+    background-clip: unset;
+  }
 }
 .u--her .u__sub { opacity: .6; }
 .her__lead { max-width: 56ch; margin-bottom: 2.6rem; }
@@ -637,7 +649,10 @@ button { font: inherit; cursor: pointer; }
 .ego--3:hover { box-shadow: 8px 8px 0 var(--n3); }
 .ego__k { font-family: var(--font-black); font-size: 1rem; letter-spacing: .1em; margin: 0 0 1rem; }
 .ego h3 { font-family: var(--font-black); font-size: clamp(1.5rem, 3.6vw, 2.3rem); line-height: .98; letter-spacing: -.03em; margin: 0 0 1.1rem; color: #fff; }
-.ego__why { font-size: .92rem; line-height: 1.78; margin: 0; color: #f2e9ff; opacity: .66; }
+.ego__why { font-size: .92rem; line-height: 1.78; margin: 0; color: inherit; opacity: .66; }
+.ego.reveal.in .ego__k,
+.ego.reveal.in .ego h3,
+.ego.reveal.in .ego__why { color: inherit; }
 .powers { border: 1px solid rgba(255,255,255,.14); border-radius: 6px; padding: clamp(1.4rem, 3.2vw, 2.2rem); background: rgba(255,255,255,.03); }
 .powers__label { font-family: var(--font-mono); font-size: .68rem; letter-spacing: .2em; text-transform: uppercase; color: var(--n2); margin: 0 0 1.6rem; }
 .powers__row { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 1.3rem; }
