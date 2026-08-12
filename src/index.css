@@ -99,16 +99,16 @@ button { font: inherit; cursor: pointer; }
 }
 .nav__list a:hover, .nav__list a:focus-visible { opacity: 1; background: rgba(128,128,128,.18); }
 .nav__toggle {
-  display: none; background: none; border: 0; padding: .5rem;
-  margin-left: auto; flex-direction: column; gap: 5px;
+  display: none; background: none; border: 0; padding: .75rem;
+  margin-left: auto; flex-direction: column; gap: 6px;
   cursor: pointer; transition: all .3s ease;
 }
 .nav__toggle span { 
-  display: block; width: 24px; height: 2.5px; background: currentColor; 
+  display: block; width: 26px; height: 3px; background: currentColor; 
   border-radius: 2px; transition: all .35s cubic-bezier(.16, 1, .3, 1);
 }
-.nav__toggle span:nth-child(1) { width: 28px; }
-.nav__toggle span:nth-child(3) { width: 20px; }
+.nav__toggle span:nth-child(1) { width: 30px; }
+.nav__toggle span:nth-child(3) { width: 22px; }
 
 .nav__toggle:hover span:nth-child(1) { width: 24px; }
 .nav__toggle:hover span:nth-child(3) { width: 24px; }
@@ -143,7 +143,9 @@ button { font: inherit; cursor: pointer; }
 }
 @media (max-width: 640px) {
   .u--hero {
-    padding-top: clamp(6rem, 15vw, 7rem);
+    padding-top: 9rem;
+    justify-content: flex-start;
+    padding-bottom: 3rem;
   }
 }
 .hero__sweep {
