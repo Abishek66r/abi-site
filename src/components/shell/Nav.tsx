@@ -97,7 +97,7 @@ export default function Nav() {
 
       <button
         type="button"
-        className="nav__toggle"
+        className={`nav__toggle ${open ? 'active' : ''}`}
         aria-label={open ? 'Close menu' : 'Open menu'}
         aria-expanded={open}
         aria-controls={MENU_ID}

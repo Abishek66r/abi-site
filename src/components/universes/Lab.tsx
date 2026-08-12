@@ -56,7 +56,7 @@ export default function Lab() {
           sub={
             <>
               Ask me my favourite anything and the honest answer is that it is all about
-              <em>probability</em> and <em>possibility</em>. Nothing stays the same — every choice
+              <em> probability</em> and <em> possibility</em>. Nothing stays the same — every choice
               is a chance to change.
             </>
           }
