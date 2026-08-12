@@ -146,7 +146,7 @@ button { font: inherit; cursor: pointer; }
 }
 @media (max-width: 640px) {
   .u--hero {
-    padding-top: 9rem;
+    padding-top: 11.5rem;
     justify-content: flex-start;
     padding-bottom: 3rem;
   }
