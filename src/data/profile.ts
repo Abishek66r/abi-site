@@ -163,6 +163,7 @@ export const HER_LOOK: Pull[] = [
   { label: 'Chubby / soft build', pull: 0.85, note: 'Softness reads as warmth to me.' },
   { label: 'Dusky, brown skin', pull: 0.83, note: 'My eye goes there before I decide to.' },
   { label: 'Honestly, all of it', pull: 0.55, note: 'There is no single face I am looking for.' },
+  { label: 'No specific thing', pull: 0.98, note: 'If any girl comes for me, I will accept her.' },
 ]
 
 export const HER_PERSON: Pull[] = [

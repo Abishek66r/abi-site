@@ -204,6 +204,11 @@ button { font: inherit; cursor: pointer; }
   font-family: var(--font-mono); font-size: .7rem; letter-spacing: .3em;
   text-transform: uppercase; opacity: .65; margin: 0 0 1.6rem;
 }
+@media (max-width: 640px) {
+  .hero__eyebrow {
+    margin-bottom: 0.6rem;
+  }
+}
 .hero__eyebrow i { width: 20px; height: 1px; background: currentColor; opacity: .45; }
 .hero__name {
   font-family: var(--font-black); margin: 0; display: flex; flex-wrap: wrap;
